@@ -1,13 +1,16 @@
-var express = require('express');
-app = express();
-path = require('path');
-cookieParser = require('cookie-parser');
-session = require('express-session')
-config = require('./config/config.js')
-ConnectMongo = require('connect-mongo')(session)
-mongoose = require('mongoose').connect(config.dbURL)
-passport = require('passport')
-app.set('views', path.join(__dirname, 'views'));
+var express = require('express'),
+	app = express();
+	path = require('path');
+	cookieParser = require('cookie-parser');
+	session = require('express-session');
+	config = require('./config/config.js');
+	ConnectMongo = require('connect-mongo')(session);
+	var uriUtil = require('mongodb-uri');
+	var mongooseUri = uriUtil.formatMongoose(config.dbURL);
+	mongoose = require('mongoose').connect(mongooseUri);
+	passport = require('passport'),
+	FacebookStrategy = require('passport-facebook').Strategy
+	app.set('views', path.join(__dirname, 'views'));
 
 app.engine('html', require('hogan-express'));
 app.set('view engine', 'html');
@@ -25,9 +28,11 @@ if(env === 'development'){
 		})
 	}))
 }
-require('./auth/passportauth.js')()
+app.use(passport.initialize());
+app.use(passport.session());
+require('./auth/passportauth.js')(passport, FacebookStrategy, config, mongoose)
 
-require('./routes/routes.js')(express, app);
+require('./routes/routes.js')(express, app, passport);
 
 app.listen(3000, function(){
 	console.log("Chat app working on port 3000");
