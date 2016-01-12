@@ -1,0 +1,9 @@
+{
+	"dbURL": "mongodb://arpit:mychatapp@ds043615.mongolab.com:43615/chatapp",
+	"sessionSecret": "UXA8T2RFN1234",
+	"fb":{
+		"appID":"174118652944006",
+		"appSecret":"c3e42331a2a526e7df64f5b1b9a8b5b8",
+		"callbackURL":"http://localhost:3000/auth/facebook/callback"
+	}
+}
