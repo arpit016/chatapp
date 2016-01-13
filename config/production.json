@@ -4,7 +4,7 @@
 	"fb":{
 		"appID":"174118652944006",
 		"appSecret":"c3e42331a2a526e7df64f5b1b9a8b5b8",
-		"callbackURL":"http://chat016.herokuapp.com/auth/facebook/callback"
+		"callbackURL":"https://chat016.herokuapp.com/auth/facebook/callback"
 	},
-	"host":"http://chat016.herokuapp.com"
+	"host":"https://chat016.herokuapp.com"
 }
