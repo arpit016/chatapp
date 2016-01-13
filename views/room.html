@@ -47,6 +47,20 @@
 
 				$(str).hide().prependTo($('.messages')).slideDown(100);	
 			}
+
+			messages.on('updateUserList', function(data){
+				var userlist = JSON.parse(data);
+				$('.users').html('');
+				for(var n = 0; n < userlist.length; n++){
+					var str = '<li><img src="'+ userlist[n].userPic + '"><h5>' + userlist[n].user + '</h5></li>'
+					$(str).prependTo($('.users'));
+				}
+			})
+
+			setInterval(function(){
+				messages.emit('updateList',{room:roomNum});
+
+			}, 15000)
 		})
 	</script>
 </head>
